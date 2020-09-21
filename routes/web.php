@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 use \App\Http\Controllers\ProjectController;
+use \App\Http\Controllers\ProjectTaskController;
  Route::get('/', function () {
     return view('welcome');
 });
  Route::group(['middleware'=>'auth'],function (){
      Route::resource('projects',ProjectController::class);
+     Route::post('projects/{project}/task',[ProjectTaskController::class,'store']);
+     Route::patch('projects/{project}/task/{task}',[ProjectTaskController::class,'update']);
  });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

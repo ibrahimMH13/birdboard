@@ -1,3 +1,16 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+
+.button {
+    @apply bg-blue-500 text-white rounded-lg text-sm py-2 px-5 !important;
+    box-shadow: 0 2px 7px 0 #b0eaff !important;
+}
+.titleProjects{
+    @apply font-normal text-xl mb-3 py-4 -ml-5 border-l-4 border-blue-400 pl-4 !important;
+}
+.cards{
+    @apply bg-white rounded-lg p-5;
+
+}

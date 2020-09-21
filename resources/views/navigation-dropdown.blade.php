@@ -52,7 +52,7 @@
                             </div>
 
                             <!-- Team Settings -->
-                            <x-jet-dropdown-link href="/teams/{{ Auth::user()->currentTeam->id }}">
+                            <x-jet-dropdown-link href="/teams/{{ Auth::user()->currentTeam->id??'' }}">
                                 {{ __('Team Settings') }}
                             </x-jet-dropdown-link>
 
@@ -155,7 +155,7 @@
                     </div>
 
                     <!-- Team Settings -->
-                    <x-jet-responsive-nav-link href="/teams/{{ Auth::user()->currentTeam->id }}" :active="request()->routeIs('teams.show')">
+                    <x-jet-responsive-nav-link href="/teams/{{ Auth::user()->currentTeam->id??'' }}" :active="request()->routeIs('teams.show')">
                         {{ __('Team Settings') }}
                     </x-jet-responsive-nav-link>
 

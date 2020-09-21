@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 use \App\Models\User;
 class ProjectTest extends TestCase
@@ -17,26 +18,26 @@ class ProjectTest extends TestCase
      */
 
     public function testUserCanCreateProject(){
-        $this->be(User::factory()->create());
+        $this->singIn();
         $this->withoutExceptionHandling();
         $this->get('projects/create')->assertStatus(200);
         $attribute =[
             'title'=>$this->faker->title,
             'description'=>$this->faker->sentence
         ];
-        $attribute['owner_id'] = auth()->id();
+        $attribute['owner_id'] = \auth()->id();
         $this->post('/projects',$attribute);
         $this->assertDatabaseHas('projects',$attribute);
         $this->get('/projects')->assertSee($attribute['title']);
     }
     public function testUserCanViewProject(){
-        $this->be(User::factory()->create());
-        $this->withoutExceptionHandling();
+        $this->singIn();
+        //$this->withoutExceptionHandling();
         $project =Project::factory()->create(['owner_id'=>auth()->id()]);
         $this->get($project->path())->assertSee($project->title)->assertSee($project->description);
     }
     public function testAuthUserCannotSeeProjectOther(){
-        $this->be(User::factory()->create());
+        $this->singIn();
         $project = Project::factory()->create();
         $this->get($project->path())->assertStatus(403);
     }
@@ -50,12 +51,12 @@ class ProjectTest extends TestCase
 
     }
     public function testProjectRequireTitle(){
-        $this->be(User::factory()->create());
+        $this->singIn();
         $attribute = Project::factory()->raw(['title'=>'']);
         $this->post('/projects',$attribute)->assertSessionHasErrors('title');
     }
     public function testProjectRequireDescription(){
-        $this->be(User::factory()->create());
+        $this->singIn();
         $attribute = Project::factory()->raw(['description'=>'']);
         $this->post('/projects',$attribute)->assertSessionHasErrors('description');
     }
@@ -67,9 +68,15 @@ class ProjectTest extends TestCase
         $this->assertEquals("projects/{$project->id}",$project->path());
     }
     public function testRelationShipProjectUser(){
-        $this->be(User::factory()->create());
+        $this->singIn();
         $project = Project::factory()->create();
         $this->assertInstanceOf(User::class,$project->owner);
+    }
+
+    public function testItCanAddTask(){
+        $project = Project::factory()->create();
+        $task = $project->addTask("test Task");
+        $this->assertTrue($project->tasks->contains($task));
     }
 
 }

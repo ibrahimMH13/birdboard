@@ -1,0 +1,8 @@
+jobs:
+  # Run Laravel scheduler
+  - name: schedule-run
+    command: /usr/bin/php /var/www/html/artisan schedule:run >> /dev/null 2>&1
+    shell: /bin/bash
+    schedule: "* * * * *"
+    captureStderr: true
+    concurrencyPolicy: Forbid

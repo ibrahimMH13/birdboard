@@ -30,8 +30,8 @@ class ProjectController extends Controller
             'description' => 'required',
          ]);
         $attribute['owner_id'] = auth()->id();
-        \App\Models\Project::create($attribute);
-        return redirect()->route('projects.index');
+        $project =  \App\Models\Project::create($attribute);
+        return redirect($project->path());
     }
     public function show(Project $project){
         if (auth()->user()->isNot($project->owner)){
