@@ -34,9 +34,7 @@ services:
       - "./webapp/files/httpd.conf:/etc/httpd/conf/httpd.conf"
       - "./webapp/files/composer_rsa:/root/.ssh/id_rsa"
      restart: always
-  #    extra_hosts:
-  #      - "echo-test:192.168.0.9"
-  #    privileged: true
+     privileged: true
 
   yacron-server:
     build:
@@ -71,8 +69,6 @@ services:
       - "../elasticsearch-7.3.2:/usr/local/elasticsearch-7.3.2"
     restart: always
     privileged: true
-  #    ports:
-  #     - 9200:9200
 
   redis:
     build:
