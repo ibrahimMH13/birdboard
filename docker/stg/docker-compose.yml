@@ -6,9 +6,9 @@ services:
      - "80:80"
      - "443:443"
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - "/var/run/docker.sock:/tmp/docker.sock:ro"
 #     - "./nginx-proxy.conf:/etc/nginx/conf.d/nginx-proxy.conf:ro"
-      - ./nginx-proxy.conf:/etc/nginx/sites-available/reverse-proxy.conf:ro
+      - "./nginx-proxy.conf:/etc/nginx/sites-available/reverse-proxy.conf:ro"
 
   mysql:
     build:
