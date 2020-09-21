@@ -20,6 +20,7 @@ services:
   webapp:
     build:
       context: ./webapp
+    container_name: webapp
     links:
       - mongodb-server
 #     - echo
@@ -27,9 +28,11 @@ services:
     volumes:
       - "../../:/var/www/html/"
       - "./webapp/files/php.conf:/etc/httpd/conf.d/php.conf"
-      - "./webapp/files/httpd.conf:/etc/httpd/conf/httpd.conf"
+#     - "./webapp/files/httpd.conf:/etc/httpd/conf/httpd.conf"
     environment:
       VIRTUAL_HOST: birdboard.imusabah.com
+    ports:
+      - 8080:80
     restart: always
     privileged: true
 
