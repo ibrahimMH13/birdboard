@@ -21,12 +21,17 @@
         </style>
     </head>
     <body class="antialiased">
-     <h1>Hay,Man</h1>
+    <div class="container mx-auto">
+    <h1>Hay,Man</h1>
     <p>
         You are welcome at Our staging ,
-        Yup this is staging for our lab and apps ,when our apps and script ready we will publish it under its domain name.
-        you are looking to development your apps ,idea or if need software solution contact us via E-mail i.musabah92@gmail.com
-        Thanks You for Visit;
+        Yup this is staging for our lab and apps ,when our apps and script ready we will publish it under its domain
+        name.
+        you are looking to development your apps ,idea or if need software solution contact us via E-mail
+        i.musabah92@gmail.com
     </p>
+    <strong>Thanks You for Visit;
+    </strong>
+    </div>
     </body>
 </html>
