@@ -1,7 +1,7 @@
 version: '3'
 services:
   proxy:
-    image: jwilder/nginx-proxy:0.7.0
+    image: jwilder/nginx-proxy:latest
 #   build:
 #     context: ./nginx
     ports:
