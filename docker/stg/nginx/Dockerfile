@@ -1,4 +1,3 @@
-#FROM jwilder/nginx-proxy:0.7.0
 FROM nginx:latest
 RUN rm /etc/nginx/conf.d/*
 COPY nginx.conf /etc/nginx/nginx.conf
