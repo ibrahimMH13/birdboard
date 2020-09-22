@@ -1,9 +1,9 @@
 version: '3'
 services:
   proxy:
-    image: jwilder/nginx-proxy:latest
-#   build:
-#     context: ./nginx
+#   image: jwilder/nginx-proxy:latest
+   build:
+     context: ./nginx
     ports:
      - "80:80"
      - "443:443"
