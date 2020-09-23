@@ -35,10 +35,13 @@
                 </div>
                 <div class="mb-3">
                 <h2 class="text-lg text-gray-400 font-normal">General Tasks</h2>
-                <textarea  class="cards w-full" style="min-height: 200px">
-                    bla bla bla
-                </textarea>
-            </div>
+                    <form action="{{$project->path()}}" method="post">
+                        @csrf
+                        @method('PATCH')
+                         <textarea  class="cards w-full" name="notes"  style="min-height: 200px" placeholder="Add Notes">{{$project->notes}}</textarea>
+                        <button class="button">Add</button>
+                    </form>
+                </div>
             </div>
             <div class="lg:w-1/4 px-3">
                 @include('projects.part.card')

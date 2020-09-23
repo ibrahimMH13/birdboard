@@ -59,6 +59,7 @@ class User extends Authenticatable
     ];
 
     public function projects(){
-        return $this->belongsTo(Project::class,'id','owner_id');
+        return $this->belongsTo(Project::class,'id','owner_id')
+                ->latest('updated_at');
     }
 }

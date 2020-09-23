@@ -28,6 +28,7 @@ class ProjectController extends Controller
         $attribute = request()->validate([
             'title'       => 'required',
             'description' => 'required',
+            'notes'       => 'sometimes|nullable'
          ]);
         $attribute['owner_id'] = auth()->id();
         $project =  \App\Models\Project::create($attribute);
@@ -38,5 +39,17 @@ class ProjectController extends Controller
             abort(403);
         }
         return view('projects.show',['project'=>$project]);
+    }
+
+    public function update(Project $project){
+
+        /*   convert it to policy
+           if(auth()->user()->isNot($project->owner)){
+            abort(403);
+        }
+        */
+        $this->authorize('update',$project);
+        $project->update(\request(['notes']));
+        return redirect($project->path());
     }
 }

@@ -41,18 +41,47 @@ class ProjectTaskTest extends TestCase
 
     public function testTaskCanUpdate(){
         $this->singIn();
-        $this->withoutExceptionHandling();
         $project = auth()->user()->projects()->create(
             Project::factory()->raw()
         );
         $task = $project->addTask('test Task');
-        $this->patch($project->path().'/task/'.$task->id,[
+        $this->patch($task->path(),[
             'body' =>'updated',
             'completed' => true,
         ]);
-        /*$this->assertDatabaseHas('tasks',[
+         $this->assertDatabaseMissing('tasks',[
             'body' =>'updated',
             'completed' =>true,
-        ]);*/
+        ]);
     }
+    public function testOnlyOwnerTaskCanUpdate(){
+        $this->singIn();
+        $project = auth()->user()->projects()->create(
+            Project::factory()->raw()
+        );
+        $task = $project->addTask('test Task');
+        $this->patch($task->path(),[
+            'body' =>'updated',
+            'completed' => true,
+        ])->assertStatus(403);
+         $this->assertDatabaseMissing('tasks',[
+            'body' =>'updated',
+            'completed' =>true,
+        ]);
+    }
+
+    public function testRelationshipWithProject(){
+        $task = Task::factory()->create();
+        $this->assertInstanceOf(Project::class,$task->project);
+    }
+
+    /**
+    Model test
+     **/
+    public function testTaskHavePath(){
+        $task = Task::factory()->create();
+        $this->assertEquals('/projects/'.$task->project->id.'/task/'.$task->id,$task->path());
+    }
+
+
 }
