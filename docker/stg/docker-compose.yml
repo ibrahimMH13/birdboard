@@ -23,8 +23,8 @@ services:
     build:
       context: ./webapp
     container_name: webapp
-    links:
-      - mongodb-server
+#   links:
+#     - mongodb-server
 #     - echo
 #     - redis
     volumes:
