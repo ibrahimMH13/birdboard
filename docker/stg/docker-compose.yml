@@ -1,23 +1,23 @@
 version: '3'
 services:
-  proxy:
-    build:
-      context: ./nginx
-    ports:
-     - "80:80"
-     - "443:443"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+# proxy:
+#   build:
+#     context: ./nginx
+#   ports:
+#    - "80:80"
+#    - "443:443"
+#   volumes:
+#     - /var/run/docker.sock:/tmp/docker.sock:ro
 #     - ./nginx-proxy.conf:/etc/nginx/conf.d/nginx-proxy.conf/:ro
 #     - "./nginx-proxy.conf:/etc/nginx/sites-available/reverse-proxy.conf:ro"
 
-  mysql:
-    build:
-      context: ./mysql
-    volumes:
-      - "~/docker/dev/mysql/:/var/lib/mysql/"
-    restart: always
-    privileged: true
+#
+#   build:
+#     context: ./mysql
+#   volumes:
+#     - "~/docker/dev/mysql/:/var/lib/mysql/"
+#   restart: always
+#   privileged: true
 
   webapp:
     build:
@@ -38,43 +38,43 @@ services:
     restart: always
     privileged: true
 
-# echo:
-#   build:
-#     context: ./webapp
-#   links:
-#     - redis
-#   volumes:
-#     - "../../:/var/www/html/"
+#echo:
+#  build:
+#    context: ./webapp
+#  links:
+#    - redis
+#  volumes:
+#    - "../../:/var/www/html/"
 #     - "./webapp/files/php.conf:/etc/httpd/conf.d/php.conf"
 #     - "./webapp/files/httpd.conf:/etc/httpd/conf/httpd.conf"
 #    restart: always
 #    privileged: true
 
-  yacron-server:
-    build:
-      context: ./webapp
-    volumes:
-      - "../../:/var/www/html/"
-      - "./yacron/init-cron.yaml:/etc/init-cron.yaml"
-    privileged: true
-    command: /usr/local/bin/yacron -c /etc/init-cron.yaml
-    #restart: always
+# yacron-server:
+#   build:
+#     context: ./webapp
+#   volumes:
+#     - "../../:/var/www/html/"
+#     - "./yacron/init-cron.yaml:/etc/init-cron.yaml"
+#   privileged: true
+#   command: /usr/local/bin/yacron -c /etc/init-cron.yaml
+#   #restart: always
 
-  mongodb-server:
-    image: "mongo:latest"
-    volumes:
-      - "~/docker/dev/mongodb/:/data/db/"
-    restart: always
+# mongodb-server:
+#   image: "mongo:latest"
+#   volumes:
+#     - "~/docker/dev/mongodb/:/data/db/"
+#   restart: always
 
-  supervisord:
-    build:
-      context: ./webapp
-    volumes:
-      - "../../:/var/www/html/"
-      - "./supervisord/files/supervisord.conf:/etc/supervisord.conf"
-    restart: always
-    privileged: true
-    command: supervisord -n
+# supervisord:
+#   build:
+#     context: ./webapp
+#   volumes:
+#     - "../../:/var/www/html/"
+#     - "./supervisord/files/supervisord.conf:/etc/supervisord.conf"
+#   restart: always
+#   privileged: true
+#   command: supervisord -n
 
 # elasticsearch-server:
 #   build:
